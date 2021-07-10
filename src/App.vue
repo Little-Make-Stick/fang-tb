@@ -49,7 +49,7 @@
     <!-- end of main-hander -->
     <div class="main-contain">
       <div class="filter-list d-flex">
-        <div class="filter d-flex">
+        <div class="filter d-flex ai-center">
           <div class="filter-label">价格区间</div>
           <div class="filter-content">
             <input
@@ -64,33 +64,77 @@
         </div>
       </div>
       <div class="good-list d-flex flex-wrap">
-        <div class="good-card-list" v-for="(item,i) in goodList" :key="i">
+        <div
+          class="good-card-list"
+          v-for="(item,i) in goodList"
+          :key="i"
+        >
           <good-card :product="item"></good-card>
         </div>
       </div>
       <div class="page-controll d-flex jc-around">
         <div class="last-page">
-          <button class="page-btn"><span >&lt;</span>上一页</button>
+          <button class="page-btn"><span>&lt;</span>上一页</button>
         </div>
         <div>……</div>
         <div class="next-page">
-           <button  class="page-btn">下一页<span>&gt;</span></button>
+          <button class="page-btn">下一页<span>&gt;</span></button>
         </div>
         <div class="first-page">
-           <button  class="page-btn">首页</button>
+          <button class="page-btn">首页</button>
         </div>
       </div>
     </div>
-    <!-- end of main-hander -->
+    <!-- end of main-contain -->
     <div class="main-footer">
-      footer
+      <div class="guess-search d-flex">
+        <div class="guess-search-label">您是不是想找:</div>
+        <div
+          class="guess-search-tags"
+          v-for="(item,i) in guessSearchTags"
+          :key="i"
+        >
+          <div class="guess-search-tag">{{item}}</div>
+        </div>
+      </div>
+      <div class="link-record d-flex">
+        <div
+          class="links"
+          v-for="(item,i) in links"
+          :key="i"
+        >
+          <a
+            class="link"
+            :href="item.href"
+          >{{item.title}}</a>
+        </div>
+        <div
+          class="records"
+          v-for="(item,i) in records"
+          :key="i"
+        >
+          <a
+            class="record"
+            :href="item.href"
+          >{{item.title}}</a>
+        </div>
+      </div>
+      <div class="ali-group-list d-flex flex-wrap">
+        <div
+          class="ali-group"
+          v-for="(item,i) in aliGroup"
+          :key="i"
+        >
+          <a class="text-grey" :href="item.href">{{item.name}}</a>
+        </div>
+      </div>
     </div>
-    <!-- end of main-hander -->
+    <!-- end of main-footer -->
   </div>
 </template>
 
 <script>
-import goodCard from '../src/components/productCard';
+import goodCard from "../src/components/productCard";
 
 export default {
   name: "App",
@@ -99,6 +143,63 @@ export default {
       lowPrice: "￥",
       highPrice: "￥",
       goodList: [],
+      guessSearchTags: [
+        "vivo",
+        "安踏",
+        "卫衣男",
+        "项链女",
+        "洗衣液",
+        "新款女装",
+        "女装",
+        "彪马",
+        "笔袋",
+        "女外套",
+      ],
+      links: [
+        { title: "联系客服", href: "https://help.alimama.com/" },
+        { title: "开放平台", href: "https://open.taobao.com/" },
+        {
+          title: "法律声明",
+          href: "https://terms.alicdn.com/legal-agreement/terms/suit_bu1_ali_mama_division/suit_bu1_ali_mama_division201709111812_13128.html",
+        },
+        { title: "廉正举报", href: "https://jubao.alibaba.com/" },
+      ],
+      records: [
+        { title: "Taobao.com版权所有 2003-现在", href: "#" },
+        { title: "增值电信业务经营许可证：浙B2-20070195", href: "#" },
+        {
+          title: "浙公网安备 33010002000075号",
+          href: "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010002000075",
+        },
+      ],
+      aliGroup: [
+        {
+          name: "阿里巴巴集团",
+          href: "http://www.alibabagroup.com/cn/global/home",
+        },
+        { name: "淘宝网", href: "https://www.taobao.com/" },
+        { name: "天猫", href: "https://www.tmall.com/" },
+        { name: "聚划算", href: "https://ju.taobao.com/" },
+        { name: "全球速卖通", href: "https://www.aliexpress.com/" },
+        { name: "阿里巴巴国际交易市场", href: "https://www.alibaba.com/" },
+        { name: "1688", href: "https://www.1688.com/" },
+        { name: "阿里妈妈", href: "https://www.alimama.com/" },
+        { name: "飞猪", href: "https://www.fliggy.com/" },
+        { name: "阿里云计算", href: "https://www.aliyun.com/" },
+        { name: "AliOS", href: "http://www.alios.cn/" },
+        { name: "阿里通信", href: "https://aliqin.tmall.com/" },
+        { name: "高德", href: "http://www.autonavi.com/" },
+        { name: "UC", href: "http://www.uc.cn/" },
+        { name: "友盟", href: "https://www.umeng.com/" },
+        { name: "虾米", href: "https://www.xiami.com/" },
+        { name: "阿里星球", href: "https://www.alibabaplanet.com/" },
+        {
+          name: "钉钉",
+          href: "https://www.dingtalk.com/?lwfrom=20150130163937547",
+        },
+        { name: "支付宝", href: "https://www.alipay.com/" },
+        { name: "达摩院", href: "https://damo.alibaba.com/" },
+      ],
       navs: [
         { title: "淘宝网首页", icon: "", link: "" },
         {
@@ -187,7 +288,7 @@ export default {
   },
   methods: {
     async fetchGoodList() {
-      const result = await this.$http.get('/search.json')
+      const result = await this.$http.get("/search.json");
       console.log(result.data);
       this.goodList = result.data;
     },
@@ -195,9 +296,9 @@ export default {
   created() {
     this.fetchGoodList();
   },
-  components:{
+  components: {
     goodCard,
-  }
+  },
 };
 </script>
 
@@ -206,8 +307,10 @@ export default {
 #app {
   .main-header {
     height: 20vh;
+    min-height: 130px;
     .info-navs-line {
       padding: 1.2vh 25vw;
+      min-height: 20px;
       .info-navs {
         width: 55vw;
         min-width: 900px;
@@ -224,20 +327,25 @@ export default {
       .search {
         .search-edit {
           .search-input {
-            border: 0.4vh solid map-get($map: $color, $key: "red");
+            border: 3px solid map-get($map: $color, $key: "red");
             height: 3vh;
             width: 30vw;
+            min-width: 595px;
+            min-height: 33px;
           }
           .search-button {
             border: 0;
             width: 4vw;
             height: 4.1vh;
+            min-width: 95px;
+            min-height: 41px;
             // color: map-get($map: $color, $key: 'white');
             color: #fff;
           }
         }
         .search-tags-line {
           width: 32vw;
+          min-width: 595px;
           padding-right: 4.5vw;
         }
       }
@@ -245,10 +353,12 @@ export default {
   }
   .main-contain {
     width: 60vw;
+    min-width: 1200px;
     padding: 1.2vh 20vw;
     .filter-list {
       border: 1px solid map-get($map: $color, $key: "grey-1");
       width: 62vw;
+      min-width: 1200px;
       .filter {
         border-right: 1px solid map-get($map: $color, $key: "grey-1");
         padding: 1vh 2vw;
@@ -259,18 +369,20 @@ export default {
           border: 1px solid map-get($map: $color, $key: "grey-1");
           width: 3vw;
           height: 2vh;
+          min-width: 48px;
+          min-height: 24px;
           color: map-get($map: $color, $key: "black-1");
         }
       }
     }
-    .good-list{
+    .good-list {
       width: 63vw;
       padding: 3vh 0;
     }
-    .page-controll{
+    .page-controll {
       width: 21vw;
       padding: 0 19.5vw;
-      .page-btn{
+      .page-btn {
         padding: 1.2vh 1.2vw;
         font-size: 16px;
         background-color: #fff;
@@ -279,6 +391,37 @@ export default {
     }
   }
   .main-footer {
+    width: 60vw;
+    margin: 0 20vw;
+    .guess-search {
+      padding: 1.2vh 1.3vw;
+      margin: 2vh 0;
+      background-color: map-get($map: $color, $key: "white-1");
+      border: 1px solid map-get($map: $color, $key: "grey-2");
+      font-size: 12px;
+      .guess-search-label {
+      }
+      .guess-search-tag {
+        padding: 0 0.5vw;
+        border-right: 1px solid map-get($map: $color, $key: "black");
+      }
+    }
+    .link-record {
+      margin: 4vh 0 1vh 0;
+      padding-right: 8vw;
+      a {
+        padding: 1.2vh 0.6vw;
+        color: map-get($map: $color, $key: "grey");
+      }
+    }
+    .ali-group-list{
+      width: 50vw;
+      .ali-group{
+        margin: 1.2vh 0;
+        padding: 0 0.6vw;
+        border-right: 1px solid map-get($map: $color, $key: "grey");
+      }
+    }
   }
 }
 </style>
