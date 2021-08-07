@@ -1,7 +1,6 @@
 <template>
   <div class="product-card">
-    <a :href="product.href">
-      <div class="product-img">
+    <div class="product-img">
         <img :src="product.src" width="194px" height="198px">
       </div>
       <div class="product-title">{{product.title}}</div>
@@ -11,7 +10,6 @@
       </div>
       <div class="product-shop">{{product.shop}}</div>
       <div class="product-sale">{{product.sale}}</div>
-    </a>
   </div>
 </template>
 <script>
@@ -24,7 +22,6 @@ export default {
     // oldPrice: { type: Number, required: true },
     // shop: { type: String, required: true },
     // sale: { type: Number, required: true },
-    // href: { type: String, required: true },
   },
 };
 </script>
@@ -36,6 +33,9 @@ export default {
     padding: 22px 20px 0 20px;
     border: 1px solid map-get($map: $color, $key: 'grey-1');
     color: map-get($map: $color, $key: 'grey');
+    &:hover{
+      border-color: map-get($map: $color, $key: 'primary');
+    }
     .product-img{
     }
     .product-title{
